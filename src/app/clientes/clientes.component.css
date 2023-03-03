@@ -1,0 +1,23 @@
+
+mat-table{
+  min-width: 70vw !important;
+}
+
+.mat-column-nome{
+  flex: 0 0 25%;
+}
+.mat-column-cpfCnpj{
+  flex: 0 0 10%;
+}
+.mat-column-email{
+  flex: 0 0 25%;
+}
+.mat-column-telefone{
+  flex: 0 0 10%;
+}
+.mat-column-numeroCasa{
+  flex: 0 0 20%;
+}
+.mat-column-enderecoCep{
+  flex: 0 0 10%;
+}

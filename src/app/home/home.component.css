@@ -1,0 +1,27 @@
+
+body{
+  height: 100vh;
+  width: 100vw;
+  background: rgba(234, 234, 255, 0.336);
+}
+
+.container{
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  vertical-align: middle;
+  align-items: center;
+}
+
+
+.button{
+  background: rgb(208, 208, 255) !important;
+  width: 10vw;
+  font-weight: 600 !important;
+}
+
+.margin{
+  margin-left: 1vw;
+  margin-right: 1vw;
+}

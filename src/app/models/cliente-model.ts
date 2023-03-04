@@ -5,5 +5,5 @@ export class ClienteModel{
   email?: string;
   telefone?: string;
   numeroCasa?: number;
-  enderecoCep?: string;
+  enderecoCep!: string;
 }

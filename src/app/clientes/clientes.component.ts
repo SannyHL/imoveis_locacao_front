@@ -1,7 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { EnderecoModel } from './../models/endereco-model';
+import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, DoCheck, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { ClientesService } from '../services/clientes.service';
 import { ClienteModel } from '../models/cliente-model';
 import { FormGroup, NgForm } from '@angular/forms';
+import { EnderecosService } from '../services/enderecos.service';
+import { ClienteEnderecoModel } from '../models/cliente-enderecos-model';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-clientes',
@@ -11,26 +15,48 @@ import { FormGroup, NgForm } from '@angular/forms';
 export class ClientesComponent implements OnInit {
 
   listaClientes: ClienteModel[] = [];
-  displayedColumns: string[] = ['nome', 'cpfCnpj', 'email', 'telefone', 'numeroCasa', 'enderecoCep'];
+  enderecos!: EnderecoModel;
+  listaClientesComEndereco: any;
+  displayedColumns: string[] = ['nome', 'cpfCnpj', 'email', 'telefone', 'numeroCasa', 'cep', 'rua', 'bairro', 'cidade', 'estado'];
   cadastrarcliete: boolean = false;
   dadosFormulario: any;
+  clienteEndereco!: any;
+  dataSource: any;
   @ViewChild('formulario', {static: false}) formulario: NgForm | undefined;
   constructor(
     private clientesService : ClientesService,
+    private enderecoService : EnderecosService,
   ){
-
-  }
-
-  ngOnInit(): void {
+    this.listaClientesComEndereco= [];
     this.dadosFormulario =[];
-    this.buscarTodosCliente()
+    this.clienteEndereco = []
   }
+  ngOnInit(): void {
+    this.buscarTodosCliente()
 
+  }
   buscarTodosCliente(){
     this.clientesService.buscarTodosClientes().subscribe(res => {
       this.listaClientes = res;
-      console.table(this.listaClientes)
+      this.listaClientes.forEach(cliente => this.enderecoService.buscarEnderecosPorCep(cliente.enderecoCep.replace(/(.{5})/, '$1-')).subscribe(resposta => {
+        this.enderecos = resposta
+        this.clienteEndereco = {
+          nome: cliente.nome,
+          cpf: cliente.cpfCnpj,
+          email: cliente.email,
+          numeroCasa: cliente.numeroCasa,
+          telefone: cliente.telefone,
+          bairro:this.enderecos.bairro,
+          cep:this.enderecos.cep,
+          localidade:this.enderecos.localidade,
+          logradouro:this.enderecos.logradouro,
+          uf:this.enderecos.uf,
+        }
+        this.listaClientesComEndereco.push(this.clienteEndereco)
+      }))
     })
+    this.dataSource = new MatTableDataSource(this.listaClientesComEndereco);
+    return this.dataSource;
   }
 
   cadastrarCliente(){

@@ -1,23 +1,37 @@
 
 mat-table{
-  min-width: 70vw !important;
+  min-width: 100vw !important;
 }
 
 .mat-column-nome{
-  flex: 0 0 25%;
+  flex: 0 0 17%;
 }
 .mat-column-cpfCnpj{
   flex: 0 0 10%;
 }
 .mat-column-email{
-  flex: 0 0 25%;
+  flex: 0 0 17%;
 }
 .mat-column-telefone{
-  flex: 0 0 10%;
+  flex: 0 0 6%;
 }
 .mat-column-numeroCasa{
-  flex: 0 0 20%;
+  flex: 0 0 8%;
 }
-.mat-column-enderecoCep{
+.mat-column-cep{
+  flex: 0 0 5%;
+}
+.mat-column-rua{
+  flex: 0 0 12%;
+}
+.mat-column-bairro{
   flex: 0 0 10%;
+}
+
+.mat-column-cidade{
+  flex: 0 0 10%;
+}
+
+.mat-column-estado{
+  flex: 0 0 5%;
 }
